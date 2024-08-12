@@ -8,5 +8,5 @@ CREATE TABLE users (
     created_at timestamp not null,
     created_by uuid null,
     updated_at timestamp not null,
-    updated_by uuid null, --padrão sql nome_aaa
+    updated_by uuid null --padrão sql nome_aaa
 )
