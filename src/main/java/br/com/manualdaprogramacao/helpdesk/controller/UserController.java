@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/usuarios")
-public class UsuarioController {
+@RequestMapping(path = "/users")
+public class UserController {
 
     @PostMapping
     public ResponseEntity create(){
