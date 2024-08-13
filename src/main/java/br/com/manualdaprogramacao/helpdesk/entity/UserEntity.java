@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -31,11 +32,11 @@ public class UserEntity {
     private UUID createdBy;
 
     @Column(name = "created_at")
-    private UUID createAt;
+    private Date createAt;
 
     @Column(name = "updated_by")
     private UUID updatedBy;
 
     @Column(name = "updated_at")
-    private UUID updatedAt;
+    private Date updatedAt;
 }
