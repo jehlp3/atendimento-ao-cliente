@@ -1,11 +1,11 @@
 package br.com.manualdaprogramacao.helpdesk.dto;
 
-public record CreateUserDto(
-        String username,
-        String password,
-        String name,
-        String email
-) {
+import lombok.Data;
 
-
+@Data
+public class CreateUserDto{
+        String username;
+        String password;
+        String name;
+        String email;
 }
