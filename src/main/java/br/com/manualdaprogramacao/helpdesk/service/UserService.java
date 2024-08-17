@@ -25,7 +25,7 @@ public class UserService {
         //Validação nome já cadastrado
         Optional<UserEntity> existentUser = userRepository.findByUsername(newUser.getUsername());
         if (existentUser.isPresent()){
-            throw new Exception("This username is already in use in the system");
+            //TODO throw new BusinessException("This username is already in use in the system");
         }
 
         UserEntity entity = mapper.toEntity(newUser);
