@@ -4,7 +4,7 @@ Acompanhando o grande profissional Paulo Roberto Balmer do Manual da Programaç�
 <br> Servirá de base para meu projeto de conclusão
 de curso em Análise e Desenvolvimento de Sistemas.<br>
 #### Conheça o canal clicando na imagem abaixo:
-[![/](images/channels4_banner.jpg)](https://www.youtube.com/channel/UCHIfHMZtqccRSw0JvV3DQgw)
+[![/](src/main/images/channels4_banner.jpg)](https://www.youtube.com/channel/UCHIfHMZtqccRSw0JvV3DQgw)
 ### 🛠️Ferramentas utilizadas
 - `Ferramentas`: Java, SpringBoot, Lombok
 - `Documentação da aplicação`: Swagger
