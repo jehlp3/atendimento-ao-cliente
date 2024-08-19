@@ -3,6 +3,7 @@ package br.com.manualdaprogramacao.helpdesk.service;
 import br.com.manualdaprogramacao.helpdesk.domain.Ticket;
 import br.com.manualdaprogramacao.helpdesk.entity.TicketEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.UserEntity;
+import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
 import br.com.manualdaprogramacao.helpdesk.mapper.TicketMapper;
 import br.com.manualdaprogramacao.helpdesk.repository.TicketRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.UserRepository;
@@ -31,7 +32,7 @@ public class TicketService {
             //TODO throw new ObjectNotFoundException("User not found with provided id");
         }
         entity.setCreatedBy(createdByUser.get());
-
+        entity.setStatus(TicketStatus.OPEN);
         entity.setCreateAt(new Date());
         entity = TicketRepository.save(entity);
         return mapper.toDomain(entity);
