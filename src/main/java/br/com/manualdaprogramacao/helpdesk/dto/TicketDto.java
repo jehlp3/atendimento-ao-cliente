@@ -20,7 +20,7 @@ public class TicketDto {
 
     private TicketStatus status;
 
-    private UserEntity createdBy;
+    private UserDto createdBy;
 
     private Date createAt;
 
