@@ -1,6 +1,7 @@
 package br.com.manualdaprogramacao.helpdesk.service;
 
 import br.com.manualdaprogramacao.helpdesk.domain.Ticket;
+import br.com.manualdaprogramacao.helpdesk.domain.TicketInteraction;
 import br.com.manualdaprogramacao.helpdesk.entity.TicketEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.UserEntity;
 import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
@@ -38,4 +39,7 @@ public class TicketService {
         return mapper.toDomain(entity);
     }
 
+    public Ticket ticketInteract(TicketInteraction domain) {
+
+    }
 }
