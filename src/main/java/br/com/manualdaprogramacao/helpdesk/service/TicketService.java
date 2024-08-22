@@ -1,12 +1,15 @@
 package br.com.manualdaprogramacao.helpdesk.service;
 
+import br.com.manualdaprogramacao.helpdesk.domain.Attachment;
 import br.com.manualdaprogramacao.helpdesk.domain.Ticket;
 import br.com.manualdaprogramacao.helpdesk.domain.TicketInteraction;
+import br.com.manualdaprogramacao.helpdesk.entity.TicketAttachmentEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.TicketEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.TicketInteractionEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.UserEntity;
 import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
 import br.com.manualdaprogramacao.helpdesk.mapper.TicketMapper;
+import br.com.manualdaprogramacao.helpdesk.repository.TicketAttachmentRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.TicketInteractionRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.TicketRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.UserRepository;
@@ -25,6 +28,8 @@ public class TicketService {
 
     private final TicketInteractionRepository ticketInteractionRepository;
 
+    private final TicketAttachmentRepository ticketAttachmentRepository;
+
     private final UserRepository userRepository;
 
     private final TicketMapper mapper;
@@ -40,6 +45,19 @@ public class TicketService {
         entity.setStatus(TicketStatus.OPEN);
         entity.setCreateAt(new Date());
         entity = ticketRepository.save(entity);
+
+        if(newTicket.getAttachments() != null && !newTicket.getAttachments().isEmpty()){
+            //percorrendo a lista
+            for (Attachment attachment : newTicket.getAttachments()){
+                TicketAttachmentEntity ticketAttachmentEntity = new TicketAttachmentEntity();
+                ticketAttachmentEntity.setTicket(entity);
+                ticketAttachmentEntity.setCreatedBy(createdByUser.get());
+                ticketAttachmentEntity.setCreateAt(new Date());
+                ticketAttachmentEntity.setFilename(attachment.getFilename());
+                ticketAttachmentRepository.save(ticketAttachmentEntity);
+            }
+        }
+
         return mapper.toDomain(entity);
     }
 
