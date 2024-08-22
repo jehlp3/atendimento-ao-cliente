@@ -60,22 +60,24 @@ public class TicketService {
 
         Date now = new Date();
 
+        TicketStatus status = TicketStatus.IN_PROGRESS;
+        if (ticket.getCreatedBy().getId() != user.getId()){
+            ticket.setSupportUser(user);
+            status = TicketStatus.AWAITING_CUSTOMER_ANSWER;
+        }
+
         TicketInteractionEntity entity = new TicketInteractionEntity();
         entity.setTicket(ticket);
         entity.setMessage(domain.getMessage());
         entity.setCreatedBy(user);
         entity.setCreateAt(now);
-        entity.setStatus(domain.getStatus());
+        entity.setStatus(status);
 
         ticketInteractionRepository.save(entity);
 
-        if (ticket.getCreatedBy().getId() != user.getId()){
-            ticket.setSupportUser(user);
-        }
-
         ticket.setUpdatedAt(now);
         ticket.setUpdatedBy(user.getId());
-        ticket.setStatus(domain.getStatus());
+        ticket.setStatus(status);
         ticket = ticketRepository.save(ticket);
 
         return mapper.toDomain(ticket);
