@@ -33,7 +33,6 @@ public class TicketAttachmentEntity {
     @Column(name = "created_at")
     private Date createAt;
 
-
     @JoinColumn(name = "updated_by")
     private UUID updatedBy;
 

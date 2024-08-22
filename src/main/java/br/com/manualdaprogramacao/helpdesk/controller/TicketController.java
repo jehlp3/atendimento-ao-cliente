@@ -39,7 +39,7 @@ public class TicketController {
     }
 
     @Operation(description = "This method creates a new support ticket interaction in the system")
-    @PostMapping(value = "{id}/interaction}")
+    @PostMapping(value = "/{id}/interaction")
     public ResponseEntity<TicketDto> create(@PathVariable(name = "id") UUID ticketId, @RequestBody CreateTicketInteractionDto request){
         TicketInteraction domain = mapper.toDomain(request);
         domain.setTicketId(ticketId);

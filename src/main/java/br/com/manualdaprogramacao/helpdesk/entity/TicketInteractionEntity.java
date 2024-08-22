@@ -1,5 +1,6 @@
 package br.com.manualdaprogramacao.helpdesk.entity;
 
+import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +25,9 @@ public class TicketInteractionEntity {
     private UserEntity sentByUser;
 
     private String message;
+
+    @Enumerated(EnumType.STRING)
+    private TicketStatus status;
 
     @ManyToOne
     @JoinColumn (name = "created_by")

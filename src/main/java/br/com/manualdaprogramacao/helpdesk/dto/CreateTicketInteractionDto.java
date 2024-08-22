@@ -1,5 +1,6 @@
 package br.com.manualdaprogramacao.helpdesk.dto;
 
+import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
 import lombok.Data;
 
 import java.util.UUID;
@@ -11,4 +12,5 @@ public class CreateTicketInteractionDto {
 
         private UUID userId;
 
+        private TicketStatus status;
 }

@@ -3,9 +3,11 @@ package br.com.manualdaprogramacao.helpdesk.service;
 import br.com.manualdaprogramacao.helpdesk.domain.Ticket;
 import br.com.manualdaprogramacao.helpdesk.domain.TicketInteraction;
 import br.com.manualdaprogramacao.helpdesk.entity.TicketEntity;
+import br.com.manualdaprogramacao.helpdesk.entity.TicketInteractionEntity;
 import br.com.manualdaprogramacao.helpdesk.entity.UserEntity;
 import br.com.manualdaprogramacao.helpdesk.enums.TicketStatus;
 import br.com.manualdaprogramacao.helpdesk.mapper.TicketMapper;
+import br.com.manualdaprogramacao.helpdesk.repository.TicketInteractionRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.TicketRepository;
 import br.com.manualdaprogramacao.helpdesk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,9 @@ import java.util.Optional;
 @Service
 public class TicketService {
 
-    private final TicketRepository TicketRepository;
+    private final TicketRepository ticketRepository;
+
+    private final TicketInteractionRepository ticketInteractionRepository;
 
     private final UserRepository userRepository;
 
@@ -35,11 +39,46 @@ public class TicketService {
         entity.setCreatedBy(createdByUser.get());
         entity.setStatus(TicketStatus.OPEN);
         entity.setCreateAt(new Date());
-        entity = TicketRepository.save(entity);
+        entity = ticketRepository.save(entity);
         return mapper.toDomain(entity);
     }
 
     public Ticket ticketInteract(TicketInteraction domain) {
+        TicketEntity ticket = ticketRepository.findById(domain.getTicketId()).orElse(null);
+
+//          TODO Validação do ticket
+//        if(ticket == null){
+//            throw new BusinessException("Ticket not found with provided id")
+//        }
+
+        UserEntity user = userRepository.findById(domain.getUserId()).orElse(null);
+
+//          TODO validação do usuário
+//        if(user == null){
+//            throw new BusinessException("User not found with provided id")
+//        }
+
+        Date now = new Date();
+
+        TicketInteractionEntity entity = new TicketInteractionEntity();
+        entity.setTicket(ticket);
+        entity.setMessage(domain.getMessage());
+        entity.setCreatedBy(user);
+        entity.setCreateAt(now);
+        entity.setStatus(domain.getStatus());
+
+        ticketInteractionRepository.save(entity);
+
+        if (ticket.getCreatedBy().getId() != user.getId()){
+            ticket.setSupportUser(user);
+        }
+
+        ticket.setUpdatedAt(now);
+        ticket.setUpdatedBy(user.getId());
+        ticket.setStatus(domain.getStatus());
+        ticket = ticketRepository.save(ticket);
+
+        return mapper.toDomain(ticket);
 
     }
 }
