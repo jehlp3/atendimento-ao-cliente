@@ -15,3 +15,6 @@ spring:
     url: ${env.DATABASE_URL}
     username: ${env.DATABASE_USERNAME}
     password: ${env.DATABASE_PASSWORD}
+
+helpdesk:
+  attachments-folder: ${env.ATTACHMENT_FOLDER}
