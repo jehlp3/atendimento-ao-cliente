@@ -9,6 +9,8 @@ import br.com.manualdaprogramacao.helpdesk.entity.TicketEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TicketMapper {
 
@@ -21,4 +23,8 @@ public interface TicketMapper {
     Ticket toDomain (CreateTicketDto dto);
 
     TicketInteraction toDomain(CreateTicketInteractionDto dto);
+
+    List<Ticket> toDomain(List<TicketEntity> entities); //Mapper consegue fazer a conversão dos itens da lista de forma automática
+
+    List<TicketDto> toDto(List<Ticket> domains);
 }
