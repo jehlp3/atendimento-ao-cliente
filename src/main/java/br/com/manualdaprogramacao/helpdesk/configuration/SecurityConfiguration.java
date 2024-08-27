@@ -1,5 +1,7 @@
 package br.com.manualdaprogramacao.helpdesk.configuration;
 
+import br.com.manualdaprogramacao.helpdesk.security.JwtTokenFilter;
+import br.com.manualdaprogramacao.helpdesk.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -70,19 +73,19 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/swagger-ui.html").permitAll()
-            .requestMatchers("/swagger-ui/**").permitAll()
-            .requestMatchers("/api-docs/**").permitAll()
-            .requestMatchers("/api-docs.yaml").permitAll()
-            .requestMatchers("/auth/token").permitAll()
-            .requestMatchers(HttpMethod.POST, "/users").permitAll()
-            .anyRequest().authenticated()
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/api-docs/**").permitAll()
+                .requestMatchers("/api-docs.yaml").permitAll()
+                .requestMatchers("/auth/token").permitAll()
+                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                .anyRequest().authenticated()
         )
-        .formLogin(withDefaults -> withDefaults);
-        http.logout().disable();
-        http.cors().disable();
-        http.csrf().disable();
+        .formLogin(withDefaults -> withDefaults.disable())
+        .logout(withDefaults -> withDefaults.disable())
+        .cors(withDefaults -> withDefaults.disable())
+        .csrf(withDefaults -> withDefaults.disable());
 
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationToken.class);
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
