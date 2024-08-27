@@ -34,4 +34,11 @@ public class UserService {
         return mapper.toDomain(entity);
     }
 
+    public User findByUsername(String username) {
+        UserEntity entity = userRepository.findByUsername(username).orElse(null);
+        if (entity == null){
+           //TODO throw new AuthorizationException("User not found");
+        }
+        return mapper.toDomain(entity);
+    }
 }
