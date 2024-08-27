@@ -11,7 +11,5 @@ public class CreateTicketInteractionDto {
 
         private String message;
 
-        private UUID userId;
-
         private List<AttachmentDto> attachments;
 }
