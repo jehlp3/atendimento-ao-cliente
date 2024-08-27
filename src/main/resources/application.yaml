@@ -18,3 +18,6 @@ spring:
 
 helpdesk:
   attachments-folder: ${env.ATTACHMENT_FOLDER}
+
+jwt:
+  secret: y"pEwCs.)zZ%_>X(['L,M-FA~rJj?*n]!B6&=}NuWhf2H4R<SD
