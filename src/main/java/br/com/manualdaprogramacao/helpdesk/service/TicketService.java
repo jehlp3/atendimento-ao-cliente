@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -167,5 +168,21 @@ public class TicketService {
 
     public List<Ticket> listAll() {
         return mapper.toDomain(ticketRepository.findAll());
+    }
+
+    public Ticket getById(UUID ticketId) {
+        TicketEntity entity = ticketRepository.findById(ticketId).orElse(null);
+        if (entity == null){
+            throw new ObjectNotFoundException("Ticket was not found");
+        }
+        return mapper.toDomain(entity);
+    }
+
+    public List<TicketInteraction> getInteractionsByTicketId(UUID ticketId) {
+        TicketEntity ticketEntity = ticketRepository.findById(ticketId).orElse(null);
+        if (ticketEntity == null){
+            throw new ObjectNotFoundException("Ticket was not found");
+        }
+        return mapper.toInteractionDomain(ticketInteractionRepository.findByTicket(ticketEntity));
     }
 }
