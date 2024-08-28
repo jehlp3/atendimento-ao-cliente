@@ -48,6 +48,22 @@ public class TicketController {
         return ResponseEntity.ok(updatedTicket);
     }
 
+    @Operation(description = "This method returns a ticket from the system by provided id")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<TicketDto> getById(@PathVariable(name = "id") UUID ticketId,
+                                            Authentication authentication){
+        TicketDto ticket = mapper.toDto(ticketService.getById(ticketId));
+        return ResponseEntity.ok(ticket);
+    }
+
+    @Operation(description = "This method returns interactions of ticket from the system by provided ticket id")
+    @GetMapping(value = "/{id}/interactions")
+    public ResponseEntity<List<TicketInteractionDto>> getInteractionsByTicketId(@PathVariable(name = "id") UUID ticketId,
+                                             Authentication authentication){
+        List<TicketInteractionDto> ticket = mapper.toInteractionDto(ticketService.getInteractionsByTicketId(ticketId));
+        return ResponseEntity.ok(ticket);
+    }
+
     @Operation(description = "This method returns the ticket list")
     @GetMapping
     public ResponseEntity<List<TicketDto>> listAllTickets(){

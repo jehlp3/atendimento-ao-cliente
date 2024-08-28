@@ -72,7 +72,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/swagger-ui.html").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/api-docs/**").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
+                .requestMatchers("/v3/api-docs/swagger-config").permitAll()
                 .requestMatchers("/api-docs.yaml").permitAll()
                 .requestMatchers("/auth/token").permitAll()
                 .requestMatchers(HttpMethod.POST, "/users").permitAll()

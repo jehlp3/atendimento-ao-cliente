@@ -38,9 +38,9 @@ public class AuthenticationController {
     @Operation(description = "This method get a bearer token to be used in the system")
     @PostMapping(value = "/token")
     public ResponseEntity doLogin(@RequestBody LoginRequestDto request) {
-        try {
+      try {
             //TODO Está com erro
-            Authentication authentication = authManager.authenticate(
+           Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getUsername(),
                             request.getPassword()
